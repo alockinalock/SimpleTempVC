@@ -14,11 +14,12 @@ class CreateVoiceChannel(commands.Cog):
                 print(f'{self.__class__.__name__} cog loaded.')
         
 
-        async def create_voice(self, interaction: discord.Interaction, category: discord.CategoryChannel, name: str, member_count: int):
+        async def create_voice(self, interaction: discord.Interaction, category: discord.CategoryChannel, name: str, member_count: int) -> discord.VoiceChannel:
                 channel_created = await category.create_voice_channel(name, user_limit=member_count)
                 
                 if channel_created is not None:
                         await interaction.response.send_message(f"Temporary voice channel created under the name: {name}")
+                        return channel_created
                 else:
                         await interaction.response.send_message("Failed to create temporary voice channel")
 
